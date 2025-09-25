@@ -1,17 +1,16 @@
-// Posições iniciais dos jogadores (todos começam no x=0, mas em linhas diferentes)
-let xJogador = [0, 0, 0, 0, 0, 0, 0];
-let yJogador = [75, 125, 175, 225, 275, 325, 375];
+let xJogador = [0, 0, 0, 0, 0, 0];  // todos começam no canto esquerdo
+let yJogador = [75, 125, 175, 225, 275, 325]; // espaçamento entre eles
 
-// Letras que representam cada jogador na tela
-let jogador = ["A", "B", "C", "D", "E", "F", "G"];
+// Letras que representam os jogadores
+let jogador = ["🦁", "🐯", "🐈", "🐕", "🐇", "🐢"];
 
-// Teclas para cada jogador (uma tecla por personagem)
-let teclas = ["a", "s", "d", "f", "g", "h", "j"];
+// Teclas que controlam os jogadores
+let teclas = ["a", "s", "d", "f", "g", "h"];
 
 let quantidade = jogador.length;
 
 function setup() {
-  createCanvas(500, 450);
+  createCanvas(500, 400);
   textSize(32);
 }
 
@@ -24,19 +23,10 @@ function draw() {
 
 function ativaJogo() {
   if (focused === true) {
-    // Tela verde (jogo ativo)
-    background("#D2EBB5");
+    background("#D2EBB5"); // verde quando ativo
   } else {
-    // Tela vermelha (aguardando clique na tela ou foco da janela)
-    background("rgb(238,178,178)");
-
-    // Instruções iniciais
-    fill(0);
-    textSize(18);
-    textAlign(CENTER, CENTER);
-    text("Corrida dos 7 Jogadores!", width / 2, height / 2 - 40);
-    text("Clique na tela para iniciar o jogo", width / 2, height / 2);
-    text("Use as teclas A, S, D, F, G, H, J para correr!", width / 2, height / 2 + 40);
+    background("rgb(238,178,178)"); // vermelho aguardando foco
+    mostraInstrucoes();
   }
 }
 
@@ -64,7 +54,7 @@ function verificaVencedor() {
       textSize(32);
       textAlign(CENTER, CENTER);
       text(jogador[i] + " venceu!", width / 2, height / 2);
-      noLoop(); // Para o jogo
+      noLoop();
     }
   }
 }
@@ -72,7 +62,16 @@ function verificaVencedor() {
 function keyReleased() {
   for (let i = 0; i < quantidade; i++) {
     if (key.toLowerCase() === teclas[i]) {
-      xJogador[i] += random(10, 30); // movimento aleatório
+      xJogador[i] += random(10, 30);
     }
   }
+}
+
+// Nova função para instruções iniciais
+function mostraInstrucoes() {
+  fill(0);
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  text("Corrida dos 6 jogadores!", width / 2, height / 2 - 40);
+  text("Pressione as teclas: A, S, D, F, G, H", width / 2, height / 2);
 }
